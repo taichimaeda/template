@@ -1,5 +1,3 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
 -- AstroUI provides the basis for configuring the AstroNvim User Interface
 -- Configuration documentation can be found with `:h astroui`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -16,6 +14,16 @@ return {
     highlights = {
       init = { -- this table overrides highlights in all themes
         -- Normal = { bg = "#000000" },
+
+        -- make native LSP document highlights clearly visible.
+        LspReferenceText = { bg = "#3B4261", bold = true },
+        LspReferenceRead = { bg = "#3B4261", bold = true },
+        LspReferenceWrite = { bg = "#5A3A5A", bold = true },
+
+        -- preserve the same colors if vim-illuminate is added later.
+        IlluminatedWordText = { bg = "#3B4261", bold = true },
+        IlluminatedWordRead = { bg = "#3B4261", bold = true },
+        IlluminatedWordWrite = { bg = "#5A3A5A", bold = true },
       },
       astrodark = { -- a table of overrides/changes when applying the astrotheme theme
         -- Normal = { bg = "#000000" },

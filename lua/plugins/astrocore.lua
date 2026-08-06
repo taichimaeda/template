@@ -1,5 +1,3 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
 -- AstroCore provides a central place to modify mappings, vim options, autocommands, and more!
 -- Configuration documentation can be found with `:h astrocore`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -40,16 +38,43 @@ return {
     -- vim options can be configured here
     options = {
       opt = { -- vim.opt.<key>
-        relativenumber = true, -- sets vim.opt.relativenumber
+        relativenumber = false, -- sets vim.opt.relativenumber
         number = true, -- sets vim.opt.number
         spell = false, -- sets vim.opt.spell
         signcolumn = "yes", -- sets vim.opt.signcolumn to yes
-        wrap = false, -- sets vim.opt.wrap
+        wrap = true, -- sets vim.opt.wrap
+        autoread = true, -- sets vim.opt.autoread
+        list = true, -- sets vim.opt.list
+        listchars = {
+          tab = "→ ", -- tab may interfere with snacks indent module
+          trail = "·",
+          extends = "…",
+          precedes = "…",
+          nbsp = "␣",
+        },
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
         -- NOTE: `mapleader` and `maplocalleader` must be set in the AstroNvim opts or before `lazy.setup`
         -- This can be found in the `lua/lazy_setup.lua` file
+      },
+    },
+    autocmds = {
+      -- open neo-tree on startup
+      auto_open_neo_tree = {
+        {
+          event = "VimEnter",
+          desc = "Open Neo-tree on startup",
+          callback = function()
+            local arg = vim.fn.argv(0)
+            if arg ~= "" and vim.fn.isdirectory(arg) == 1 then
+              vim.cmd "enew"
+              vim.cmd "bd#"
+            end
+
+            vim.cmd "Neotree show"
+          end,
+        },
       },
     },
     -- Mappings can be configured through AstroCore as well.
